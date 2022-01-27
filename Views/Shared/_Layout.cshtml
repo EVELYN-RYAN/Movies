@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Movies</title>
+</head>
+<style>
+    h1,h3,form {
+        text-align: center;
+    }
+
+    a {
+        padding: 0 10rem 0 10rem;
+        font-size: 20pt;
+    }
+</style>
+<body>
+
+    <p><a asp-controller="Home" asp-action="Index">Home</a><a asp-controller="Home" asp-action="AddMovie">Add a Movie</a><a asp-controller="Home" asp-action="MyPodcast">My Podcast</a></p>
+    
+
+    @RenderBody()
+
+</body>
+</html>
