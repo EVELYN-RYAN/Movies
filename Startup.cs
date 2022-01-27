@@ -27,10 +27,10 @@ namespace Movies
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            //Connect to Sqlite on these terms
             services.AddDbContext<AddMovieContext>(options =>
             {
-                options.UseSqlite(Configuration["ConnectionStrings:PlexConnection"]);
+                options.UseSqlite(Configuration["ConnectionStrings:PlexConnection"]); //This is the connectionstring created in settings
             });
         }
 

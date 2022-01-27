@@ -23,7 +23,7 @@ namespace Movies.Models
 
         public string LentTo { get; set; }
 
-        [MaxLength(25)]
+        [MaxLength(25)] //limits to 25 characters
         public string Notes { get; set; }
     }
 }

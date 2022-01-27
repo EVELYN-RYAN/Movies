@@ -20,29 +20,29 @@ namespace Movies.Controllers
             _logger = logger;
             SomeContext = name;
         }
-
+        //view name caller my naming convention
         public IActionResult Index()
         {
             return View();
         }
-
+        //view name caller my naming convention
         public IActionResult Privacy()
         {
             return View();
         }
-        [HttpGet]
+        [HttpGet] // Identify that it is a get request 
         public IActionResult AddMovie()
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost] //Identify that this is a post for sending the object to be saved
         public IActionResult AddMovie(MovieRes mr)
         {
             SomeContext.Add(mr);
             SomeContext.SaveChanges();
             
 
-            return View("Submited");
+            return View("Submited"); //Redirects to the submitted page
         }
         public IActionResult MyPodcast()
         {
