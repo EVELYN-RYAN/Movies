@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Movies.Models;
 
@@ -25,33 +26,71 @@ namespace Movies.Controllers
         {
             return View();
         }
-        //view name caller my naming convention
-        public IActionResult Privacy()
-        {
-            return View();
-        }
         [HttpGet] // Identify that it is a get request 
         public IActionResult AddMovie()
         {
+            ViewBag.Category = SomeContext.Categories.ToList();
             return View();
         }
         [HttpPost] //Identify that this is a post for sending the object to be saved
         public IActionResult AddMovie(MovieRes mr)
         {
-            SomeContext.Add(mr);
-            SomeContext.SaveChanges();
-            
+            if (ModelState.IsValid)
+            {
+                SomeContext.Add(mr);
+                SomeContext.SaveChanges();
+            }
+            else //if valid
+            {
+                ViewBag.Category = SomeContext.Categories.ToList();
+                return View(mr);
+            }
 
-            return View("Submited"); //Redirects to the submitted page
+            return View("submited");
+        }
+        public IActionResult AllMovies()
+        {
+            var movies = SomeContext.Responses
+                .Include(x => x.Category)
+                .OrderBy(x => x.Category)
+                .ToList();
+            return View(movies);
+        }
+        [HttpGet]
+        public IActionResult Edit(int movieid)
+        {
+            var movies = SomeContext.Responses
+                .Single(x => x.MovieID == movieid);
+
+            ViewBag.Category = SomeContext.Categories.ToList();
+            return View("AddMovie", movies);
+        }
+        [HttpPost]
+        public IActionResult Edit(MovieRes mr)
+        {
+            SomeContext.Update(mr);
+            SomeContext.SaveChanges();
+
+            return RedirectToAction("AllMovies");
+        }
+        [HttpGet]
+        public IActionResult Delete(int movieid)
+        {
+            var movie = SomeContext.Responses
+                .Single(x => x.MovieID == movieid);
+            return View(movie);
+        }
+        [HttpPost]
+        public IActionResult Delete(MovieRes mr)
+        {
+            SomeContext.Responses.Remove(mr);
+            SomeContext.SaveChanges();
+            return RedirectToAction("AllMovies");
         }
         public IActionResult MyPodcast()
         {
             return View();
         }
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+
     }
 }

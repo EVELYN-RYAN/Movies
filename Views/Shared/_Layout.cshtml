@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <title>@ViewData["Title"] - Movies</title>
 </head>
 <style>
@@ -10,14 +11,14 @@
         text-align: center;
     }
 
-    a {
-        padding: 0 10rem 0 10rem;
+    .a {
+        padding: 0 6rem 0 6rem;
         font-size: 20pt;
     }
 </style>
 <body>
 
-    <p><a asp-controller="Home" asp-action="Index">Home</a><a asp-controller="Home" asp-action="AddMovie">Add a Movie</a><a asp-controller="Home" asp-action="MyPodcast">My Podcast</a></p>
+    <a class="a" asp-controller="Home" asp-action="Index">Home</a><a class="a" asp-controller="Home" asp-action="AllMovies">All Movies</a><a class="a" asp-controller="Home" asp-action="AddMovie">Add a Movie</a><a class="a" asp-controller="Home" asp-action="MyPodcast">My Podcast</a>
     
 
     @RenderBody()

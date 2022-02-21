@@ -8,9 +8,9 @@ namespace Movies.Models
         [Key]
         [Required]
         public int MovieID { get; set; }
-        [Required]
-        public string Category { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Category is required")]
+        public int CategoryID { get; set; }
+        [Required(ErrorMessage = "Movie title is required")]
         public string Title { get; set; }
         [Required]
         public int Year { get; set; }
@@ -25,5 +25,8 @@ namespace Movies.Models
 
         [MaxLength(25)] //limits to 25 characters
         public string Notes { get; set; }
+        // Building foreign key relationship
+        
+        public Category Category { get; set; }
     }
 }
